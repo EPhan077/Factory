@@ -27,11 +27,11 @@ var Factory = exports.Factory = function () {
             value: function createObj(_type, _life, _firePower) {
                   try {
                         var instance = new Factory.classes[_type](_type, _life, _firePower);
-                        tempArray.push(instance);
+                        tempArray.push(instance); // push items for the array
 
                         var print = Inventory.display(instance);
-                        var count = _util.Util.sum(tempArray, _type);
-                        var total = Inventory.displaySum(count);
+                        var count = _util.Util.sum(tempArray, _type); // send to the util class
+                        var total = Inventory.displaySum(count); // display the total
                         return instance;
                   } catch (error) {
                         throw 'this is not a valid class';
@@ -40,6 +40,7 @@ var Factory = exports.Factory = function () {
       }, {
             key: 'setClasses',
             value: function setClasses() {
+                  //clas that are avaliable
                   Factory.classes = {
                         Soldier: _items.Soldier,
                         Tank: _items.Tank,
@@ -55,22 +56,24 @@ var Inventory = exports.Inventory = function () {
       function Inventory() {
             _classCallCheck(this, Inventory);
       }
+      // print inventory
 
-      _createClass(Inventory, [{
-            key: 'list',
-            value: function list(_player) {}
-      }], [{
+
+      _createClass(Inventory, null, [{
             key: 'display',
             value: function display(_template) {
                   var template = '\n                  <ul>\n                        <li><span>Life: </span>' + _template.life + '</li>\n                        <li><span>Power: </span>' + _template.power + '</li>\n                        <li><span> Type: </span>' + _template.type + '</li>\n                  </ul>\n                  <hr>\n            ';
                   document.getElementById('playerList').insertAdjacentHTML('afterbegin', template);
                   Inventory.displaySum();
             }
+            // display the total of items
+
       }, {
             key: 'displaySum',
             value: function displaySum(_count) {
+                  console.log(_count);
                   document.getElementById('dResult').innerHTML = '';
-                  var template = '\n                  <li><span>Total Soldiers: ' + _count + '</span></li>\n                  <li><span>Total Tanks:</span> ' + _count + '</li>\n                  <li><span>Total Jets:</span> ' + _count + '</li>\n                  <hr>\n            ';
+                  var template = '\n                  <li><span>Total Items: ' + _count + '</span></li>\n                  <hr>\n            ';
                   document.getElementById('dResult').insertAdjacentHTML('afterbegin', template);
             }
       }]);
@@ -199,10 +202,6 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var totalCount = {};
-totalCount[1] = 0;
-totalCount[2] = 0;
 
 var Util = exports.Util = function () {
       function Util() {

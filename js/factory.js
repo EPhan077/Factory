@@ -9,11 +9,11 @@ export class Factory{
       static createObj(_type, _life, _firePower){
             try {
                   let instance = new Factory.classes[_type](_type, _life, _firePower);
-                  tempArray.push(instance);
+                  tempArray.push(instance); // push items for the array
             
                   let print = Inventory.display(instance);
-                  let count = Util.sum(tempArray, _type);
-                  let total = Inventory.displaySum(count);
+                  let count = Util.sum(tempArray, _type); // send to the util class
+                  let total = Inventory.displaySum(count); // display the total
                   return instance;
             } catch (error) {
                   throw 'this is not a valid class';
@@ -22,6 +22,7 @@ export class Factory{
       }
 
       static setClasses(){
+            //clas that are avaliable
             Factory.classes = {
                  Soldier,
                  Tank,
@@ -34,11 +35,7 @@ export class Inventory{
       constructor(){
 
       }
-
-      list(_player){
-
-      }
-
+      // print inventory
       static display(_template){
             let template = `
                   <ul>
@@ -51,13 +48,12 @@ export class Inventory{
             document.getElementById('playerList').insertAdjacentHTML('afterbegin', template);
             Inventory.displaySum();
       }
-
+      // display the total of items
       static displaySum(_count){
+            console.log(_count);
             document.getElementById('dResult').innerHTML = '';
             let template = `
-                  <li><span>Total Soldiers: ${_count}</span></li>
-                  <li><span>Total Tanks:</span> ${_count}</li>
-                  <li><span>Total Jets:</span> ${_count}</li>
+                  <li><span>Total Items: ${_count}</span></li>
                   <hr>
             `
             document.getElementById('dResult').insertAdjacentHTML('afterbegin', template);
