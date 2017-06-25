@@ -15,10 +15,33 @@ class Main{
                   throw 'Main was already created';
             }	
 	}
-      
 }
 
+// when the page is ready
+window.addEventListener('load', ()=>{
 
-// document.addEventListener
-let main = Main.getInstance();
-let test100 = Factory.createObj('Soldier');
+      let main = Main.getInstance();
+
+
+      // listen to the form
+      document.getElementById('create').addEventListener('submit', (e)=> {
+            e.preventDefault();
+            // form fields
+            let selectOption = document.getElementById('type');
+            let createType = selectOption.options[selectOption.selectedIndex].value;
+            
+ 
+            console.log('which one?', createType);
+            let create = Factory.createObj(createType);
+
+      });
+
+});
+
+
+
+
+
+
+
+

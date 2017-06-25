@@ -1,10 +1,10 @@
 export class Soldier{
       constructor(){
-            console.log('testing created');
+            console.log('soldier created');
       }
 }
 export class Tank{
       constructor(){
-            console.log('testing2222 created');
+            console.log('tank created');
       }
 }

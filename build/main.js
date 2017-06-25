@@ -21,7 +21,14 @@ var Factory = exports.Factory = function () {
       _createClass(Factory, null, [{
             key: 'createObj',
             value: function createObj(_obj) {
-                  return new Factory.classes[_obj]();
+                  try {
+                        var instance = new Factory.classes[_obj]();
+                        console.log('instance: ', instance);
+
+                        return instance;
+                  } catch (error) {
+                        throw 'this is not a valid class';
+                  }
             }
       }, {
             key: 'setClasses',
@@ -36,6 +43,22 @@ var Factory = exports.Factory = function () {
       return Factory;
 }();
 
+var Inventory = function () {
+      function Inventory() {
+            _classCallCheck(this, Inventory);
+      }
+
+      _createClass(Inventory, [{
+            key: 'list',
+            value: function list(_player) {}
+      }, {
+            key: 'display',
+            value: function display() {}
+      }]);
+
+      return Inventory;
+}();
+
 },{"./items":2}],2:[function(require,module,exports){
 'use strict';
 
@@ -48,13 +71,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Soldier = exports.Soldier = function Soldier() {
       _classCallCheck(this, Soldier);
 
-      console.log('testing created');
+      console.log('soldier created');
 };
 
 var Tank = exports.Tank = function Tank() {
       _classCallCheck(this, Tank);
 
-      console.log('testing2222 created');
+      console.log('tank created');
 };
 
 },{}],3:[function(require,module,exports){
@@ -91,10 +114,23 @@ var Main = function () {
       return Main;
 }();
 
-// document.addEventListener
+// when the page is ready
 
 
-var main = Main.getInstance();
-var test100 = _factory.Factory.createObj('Soldier');
+window.addEventListener('load', function () {
+
+      var main = Main.getInstance();
+
+      // listen to the form
+      document.getElementById('create').addEventListener('submit', function (e) {
+            e.preventDefault();
+            // form fields
+            var selectOption = document.getElementById('type');
+            var createType = selectOption.options[selectOption.selectedIndex].value;
+
+            console.log('which one?', createType);
+            var create = _factory.Factory.createObj(createType);
+      });
+});
 
 },{"./factory":1}]},{},[3]);
