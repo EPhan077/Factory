@@ -1,5 +1,6 @@
 import {Soldier, Tank, Jet} from './items';
-
+import {Util} from './util';
+let tempArray = [];
 // Factory to instanciate the class dynamically
 export class Factory{
       constructor(){
@@ -8,8 +9,11 @@ export class Factory{
       static createObj(_type, _life, _firePower){
             try {
                   let instance = new Factory.classes[_type](_type, _life, _firePower);
+                  tempArray.push(instance);
+            
                   let print = Inventory.display(instance);
-
+                  let count = Util.sum(tempArray, _type);
+                  let total = Inventory.displaySum(count);
                   return instance;
             } catch (error) {
                   throw 'this is not a valid class';
@@ -48,12 +52,12 @@ export class Inventory{
             Inventory.displaySum();
       }
 
-      static displaySum(){
+      static displaySum(_count){
             document.getElementById('dResult').innerHTML = '';
             let template = `
-                  <li><span>Total Soldiers:</span></li>
-                  <li><span>Total Tanks:</span></li>
-                  <li><span>Total Jets:</span></li>
+                  <li><span>Total Soldiers: ${_count}</span></li>
+                  <li><span>Total Tanks:</span> ${_count}</li>
+                  <li><span>Total Jets:</span> ${_count}</li>
                   <hr>
             `
             document.getElementById('dResult').insertAdjacentHTML('afterbegin', template);

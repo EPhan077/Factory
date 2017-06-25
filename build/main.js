@@ -10,9 +10,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _items = require('./items');
 
+var _util = require('./util');
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var tempArray = [];
 // Factory to instanciate the class dynamically
+
 var Factory = exports.Factory = function () {
       function Factory() {
             _classCallCheck(this, Factory);
@@ -23,8 +27,11 @@ var Factory = exports.Factory = function () {
             value: function createObj(_type, _life, _firePower) {
                   try {
                         var instance = new Factory.classes[_type](_type, _life, _firePower);
-                        var print = Inventory.display(instance);
+                        tempArray.push(instance);
 
+                        var print = Inventory.display(instance);
+                        var count = _util.Util.sum(tempArray, _type);
+                        var total = Inventory.displaySum(count);
                         return instance;
                   } catch (error) {
                         throw 'this is not a valid class';
@@ -61,9 +68,9 @@ var Inventory = exports.Inventory = function () {
             }
       }, {
             key: 'displaySum',
-            value: function displaySum() {
+            value: function displaySum(_count) {
                   document.getElementById('dResult').innerHTML = '';
-                  var template = '\n                  <li><span>Total Soldiers:</span></li>\n                  <li><span>Total Tanks:</span></li>\n                  <li><span>Total Jets:</span></li>\n                  <hr>\n            ';
+                  var template = '\n                  <li><span>Total Soldiers: ' + _count + '</span></li>\n                  <li><span>Total Tanks:</span> ' + _count + '</li>\n                  <li><span>Total Jets:</span> ' + _count + '</li>\n                  <hr>\n            ';
                   document.getElementById('dResult').insertAdjacentHTML('afterbegin', template);
             }
       }]);
@@ -71,7 +78,7 @@ var Inventory = exports.Inventory = function () {
       return Inventory;
 }();
 
-},{"./items":2}],2:[function(require,module,exports){
+},{"./items":2,"./util":4}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -178,9 +185,43 @@ window.addEventListener('load', function () {
             var selectOption = document.getElementById('type');
             var createType = selectOption.options[selectOption.selectedIndex].value;
 
-            console.log('which one?', createType);
             var create = _factory.Factory.createObj(createType, life, firePower);
       });
 });
 
-},{"./factory":1}]},{},[3]);
+},{"./factory":1}],4:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+      value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var totalCount = {};
+totalCount[1] = 0;
+totalCount[2] = 0;
+
+var Util = exports.Util = function () {
+      function Util() {
+            _classCallCheck(this, Util);
+      }
+
+      _createClass(Util, null, [{
+            key: "sum",
+            value: function sum(_n, _type) {
+                  var count = 0;
+                  for (var i = 0; i < _n.length; i++) {
+                        count++;
+                  }
+
+                  return count;
+            }
+      }]);
+
+      return Util;
+}();
+
+},{}]},{},[3]);

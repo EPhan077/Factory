@@ -32,8 +32,6 @@ window.addEventListener('load', ()=>{
             let selectOption = document.getElementById('type');
             let createType = selectOption.options[selectOption.selectedIndex].value;
 
-
-            console.log('which one?', createType);
             let create = Factory.createObj(createType, life, firePower);
       });
 
