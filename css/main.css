@@ -1,3 +1,6 @@
+h1{
+      margin-bottom: 50px;
+}
 form{
       color: black;
 }
@@ -39,4 +42,12 @@ form button{
       background: #3C6E71;
       color: white;
       height: 100vh;
+}
+
+ul li{
+      list-style-type: none;
+}
+
+ul li span{
+      font-weight: bold;
 }

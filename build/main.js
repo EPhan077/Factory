@@ -4,7 +4,7 @@
 Object.defineProperty(exports, "__esModule", {
       value: true
 });
-exports.Factory = undefined;
+exports.Inventory = exports.Factory = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20,10 +20,11 @@ var Factory = exports.Factory = function () {
 
       _createClass(Factory, null, [{
             key: 'createObj',
-            value: function createObj(_obj) {
+            value: function createObj(_type, _life, _firePower) {
                   try {
-                        var instance = new Factory.classes[_obj]();
-                        console.log('instance: ', instance);
+                        var instance = new Factory.classes[_type](_type, _life, _firePower);
+                        var print = Inventory.display(instance);
+                        // console.log(instance);
 
                         return instance;
                   } catch (error) {
@@ -43,7 +44,7 @@ var Factory = exports.Factory = function () {
       return Factory;
 }();
 
-var Inventory = function () {
+var Inventory = exports.Inventory = function () {
       function Inventory() {
             _classCallCheck(this, Inventory);
       }
@@ -51,34 +52,79 @@ var Inventory = function () {
       _createClass(Inventory, [{
             key: 'list',
             value: function list(_player) {}
-      }, {
+      }], [{
             key: 'display',
-            value: function display() {}
+            value: function display(_template) {
+                  var template = '\n                  <ul>\n                        <li><span>Life: </span>' + _template.life + '</li>\n                        <li><span>Power: </span>' + _template.power + '</li>\n                        <li><span> Type: </span>' + _template.type + '</li>\n                  </ul>\n                  <hr>\n            ';
+                  document.getElementById('playerList').insertAdjacentHTML('afterbegin', template);
+            }
+      }, {
+            key: 'displaySum',
+            value: function displaySum(_template) {
+                  var template = '\n                  <ul>\n                        <li><span>Life: </span>' + _template.life + '</li>\n                        <li><span>Power: </span>' + _template.power + '</li>\n                        <li><span> Type: </span>' + _template.type + '</li>\n                  </ul>\n                  <hr>\n            ';
+                  document.getElementById('playerList').insertAdjacentHTML('afterbegin', template);
+            }
       }]);
 
       return Inventory;
 }();
 
 },{"./items":2}],2:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
       value: true
 });
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Soldier = exports.Soldier = function Soldier() {
-      _classCallCheck(this, Soldier);
+var SetUp = function SetUp(_type, _life, _firePower) {
+      _classCallCheck(this, SetUp);
 
-      console.log('soldier created');
+      this.life = _life;
+      this.power = _firePower;
+      this.type = _type;
 };
 
-var Tank = exports.Tank = function Tank() {
-      _classCallCheck(this, Tank);
+var Soldier = exports.Soldier = function (_SetUp) {
+      _inherits(Soldier, _SetUp);
 
-      console.log('tank created');
-};
+      function Soldier(_type, _life, _firePower) {
+            _classCallCheck(this, Soldier);
+
+            return _possibleConstructorReturn(this, (Soldier.__proto__ || Object.getPrototypeOf(Soldier)).call(this, _type, _life, _firePower));
+      }
+
+      return Soldier;
+}(SetUp);
+
+var Tank = exports.Tank = function (_SetUp2) {
+      _inherits(Tank, _SetUp2);
+
+      function Tank(_type, _life, _firePower) {
+            _classCallCheck(this, Tank);
+
+            return _possibleConstructorReturn(this, (Tank.__proto__ || Object.getPrototypeOf(Tank)).call(this, _type, _life, _firePower));
+      }
+
+      return Tank;
+}(SetUp);
+
+var Jet = exports.Jet = function (_SetUp3) {
+      _inherits(Jet, _SetUp3);
+
+      function Jet(_type, _life, _firePower) {
+            _classCallCheck(this, Jet);
+
+            return _possibleConstructorReturn(this, (Jet.__proto__ || Object.getPrototypeOf(Jet)).call(this, _type, _life, _firePower));
+      }
+
+      return Jet;
+}(SetUp);
 
 },{}],3:[function(require,module,exports){
 'use strict';
@@ -125,11 +171,13 @@ window.addEventListener('load', function () {
       document.getElementById('create').addEventListener('submit', function (e) {
             e.preventDefault();
             // form fields
+            var life = document.getElementById('life').value;
+            var firePower = document.getElementById('firePower').value;
             var selectOption = document.getElementById('type');
             var createType = selectOption.options[selectOption.selectedIndex].value;
 
             console.log('which one?', createType);
-            var create = _factory.Factory.createObj(createType);
+            var create = _factory.Factory.createObj(createType, life, firePower);
       });
 });
 

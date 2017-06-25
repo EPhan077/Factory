@@ -27,13 +27,14 @@ window.addEventListener('load', ()=>{
       document.getElementById('create').addEventListener('submit', (e)=> {
             e.preventDefault();
             // form fields
+            let life = document.getElementById('life').value;
+            let firePower = document.getElementById('firePower').value;
             let selectOption = document.getElementById('type');
             let createType = selectOption.options[selectOption.selectedIndex].value;
-            
- 
-            console.log('which one?', createType);
-            let create = Factory.createObj(createType);
 
+
+            console.log('which one?', createType);
+            let create = Factory.createObj(createType, life, firePower);
       });
 
 });

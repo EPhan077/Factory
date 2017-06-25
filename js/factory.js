@@ -5,10 +5,11 @@ export class Factory{
       constructor(){
       }
       
-      static createObj(_obj){
+      static createObj(_type, _life, _firePower){
             try {
-                  let instance = new Factory.classes[_obj]();
-                  console.log('instance: ', instance);
+                  let instance = new Factory.classes[_type](_type, _life, _firePower);
+                  let print = Inventory.display(instance);
+                  // console.log(instance);
                   
                   return instance;
             } catch (error) {
@@ -25,10 +26,7 @@ export class Factory{
       }
 }
 
-
-
-
-class Inventory{
+export class Inventory{
       constructor(){
       }
 
@@ -36,7 +34,27 @@ class Inventory{
 
       }
 
-      display(){
-            
+      static display(_template){
+            let template = `
+                  <ul>
+                        <li><span>Life: </span>${_template.life}</li>
+                        <li><span>Power: </span>${_template.power}</li>
+                        <li><span> Type: </span>${_template.type}</li>
+                  </ul>
+                  <hr>
+            `
+            document.getElementById('playerList').insertAdjacentHTML('afterbegin', template);
+      }
+
+      static displaySum(_template){
+            let template = `
+                  <ul>
+                        <li><span>Life: </span>${_template.life}</li>
+                        <li><span>Power: </span>${_template.power}</li>
+                        <li><span> Type: </span>${_template.type}</li>
+                  </ul>
+                  <hr>
+            `
+            document.getElementById('playerList').insertAdjacentHTML('afterbegin', template);
       }
 }
