@@ -24,7 +24,6 @@ var Factory = exports.Factory = function () {
                   try {
                         var instance = new Factory.classes[_type](_type, _life, _firePower);
                         var print = Inventory.display(instance);
-                        // console.log(instance);
 
                         return instance;
                   } catch (error) {
@@ -36,7 +35,8 @@ var Factory = exports.Factory = function () {
             value: function setClasses() {
                   Factory.classes = {
                         Soldier: _items.Soldier,
-                        Tank: _items.Tank
+                        Tank: _items.Tank,
+                        Jet: _items.Jet
                   };
             }
       }]);
@@ -57,12 +57,14 @@ var Inventory = exports.Inventory = function () {
             value: function display(_template) {
                   var template = '\n                  <ul>\n                        <li><span>Life: </span>' + _template.life + '</li>\n                        <li><span>Power: </span>' + _template.power + '</li>\n                        <li><span> Type: </span>' + _template.type + '</li>\n                  </ul>\n                  <hr>\n            ';
                   document.getElementById('playerList').insertAdjacentHTML('afterbegin', template);
+                  Inventory.displaySum();
             }
       }, {
             key: 'displaySum',
-            value: function displaySum(_template) {
-                  var template = '\n                  <ul>\n                        <li><span>Life: </span>' + _template.life + '</li>\n                        <li><span>Power: </span>' + _template.power + '</li>\n                        <li><span> Type: </span>' + _template.type + '</li>\n                  </ul>\n                  <hr>\n            ';
-                  document.getElementById('playerList').insertAdjacentHTML('afterbegin', template);
+            value: function displaySum() {
+                  document.getElementById('dResult').innerHTML = '';
+                  var template = '\n                  <li><span>Total Soldiers:</span></li>\n                  <li><span>Total Tanks:</span></li>\n                  <li><span>Total Jets:</span></li>\n                  <hr>\n            ';
+                  document.getElementById('dResult').insertAdjacentHTML('afterbegin', template);
             }
       }]);
 

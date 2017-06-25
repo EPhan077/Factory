@@ -1,4 +1,4 @@
-import {Soldier, Tank} from './items';
+import {Soldier, Tank, Jet} from './items';
 
 // Factory to instanciate the class dynamically
 export class Factory{
@@ -9,8 +9,7 @@ export class Factory{
             try {
                   let instance = new Factory.classes[_type](_type, _life, _firePower);
                   let print = Inventory.display(instance);
-                  // console.log(instance);
-                  
+
                   return instance;
             } catch (error) {
                   throw 'this is not a valid class';
@@ -21,13 +20,15 @@ export class Factory{
       static setClasses(){
             Factory.classes = {
                  Soldier,
-                 Tank
+                 Tank,
+                 Jet
             }; 
       }
 }
 
 export class Inventory{
       constructor(){
+
       }
 
       list(_player){
@@ -44,17 +45,17 @@ export class Inventory{
                   <hr>
             `
             document.getElementById('playerList').insertAdjacentHTML('afterbegin', template);
+            Inventory.displaySum();
       }
 
-      static displaySum(_template){
+      static displaySum(){
+            document.getElementById('dResult').innerHTML = '';
             let template = `
-                  <ul>
-                        <li><span>Life: </span>${_template.life}</li>
-                        <li><span>Power: </span>${_template.power}</li>
-                        <li><span> Type: </span>${_template.type}</li>
-                  </ul>
+                  <li><span>Total Soldiers:</span></li>
+                  <li><span>Total Tanks:</span></li>
+                  <li><span>Total Jets:</span></li>
                   <hr>
             `
-            document.getElementById('playerList').insertAdjacentHTML('afterbegin', template);
+            document.getElementById('dResult').insertAdjacentHTML('afterbegin', template);
       }
 }

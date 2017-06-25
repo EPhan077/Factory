@@ -1,3 +1,6 @@
+body{
+      background: black;
+}
 h1{
       margin-bottom: 50px;
 }
@@ -30,18 +33,19 @@ form button{
 .create{
       background: #483C46;
       color: white;
-      height: 100vh;
+      min-height: 100vh;
 }
 
 .players{
       background:#EF626C;
       color: white;
-      height: 100vh;
+      min-height: 100vh;
 }
 .result{
       background: #3C6E71;
       color: white;
-      height: 100vh;
+      height: auto;
+      min-height: 100vh;
 }
 
 ul li{
@@ -50,4 +54,8 @@ ul li{
 
 ul li span{
       font-weight: bold;
+}
+
+#result ul li{
+      list-style-type: none;
 }
